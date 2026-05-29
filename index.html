@@ -1,0 +1,303 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LogiTrack | Smart Logistics Portal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f4f6f9;
+            color: #333;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            background-color: #1e293b;
+            color: #fff;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #38bdf8;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            margin-left: 1.5rem;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #38bdf8;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #fff;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            color: #94a3b8;
+            font-size: 1.1rem;
+            margin-bottom: 2.5rem;
+        }
+
+        /* Tracking Container */
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            background: #fff;
+            padding: 0.5rem;
+            border-radius: 50px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+        }
+
+        .search-container input {
+            flex: 1;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            outline: none;
+            border-radius: 50px;
+        }
+
+        .search-container button {
+            background-color: #38bdf8;
+            color: #0f172a;
+            border: none;
+            padding: 0.75rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .search-container button:hover {
+            background-color: #0ea5e9;
+        }
+
+        /* Main Tracking Steps Flow Container */
+        .main-content {
+            max-width: 900px;
+            margin: -2rem auto 4rem auto;
+            background: #fff;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            color: #1e293b;
+            margin-bottom: 2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #f1f5f9;
+        }
+
+        /* Scenario Timeline Flow */
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 25px;
+            left: 5%;
+            right: 5%;
+            height: 4px;
+            background-color: #e2e8f0;
+            z-index: 1;
+        }
+
+        .timeline-progress {
+            position: absolute;
+            top: 25px;
+            left: 5%;
+            width: 60%; /* Controls the visual completion line */
+            height: 4px;
+            background-color: #38bdf8;
+            z-index: 2;
+        }
+
+        .step {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            flex: 1;
+        }
+
+        .circle {
+            width: 54px;
+            height: 54px;
+            background-color: #e2e8f0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 0.75rem auto;
+            font-weight: bold;
+            color: #64748b;
+            border: 4px solid #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+
+        .step.completed .circle {
+            background-color: #38bdf8;
+            color: #0f172a;
+        }
+
+        .step.active .circle {
+            background-color: #0f172a;
+            color: #38bdf8;
+            border-color: #38bdf8;
+        }
+
+        .step-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #64748b;
+        }
+
+        .step.completed .step-label, .step.active .step-label {
+            color: #0f172a;
+        }
+
+        /* Details Information Board */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            background-color: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .info-item h4 {
+            font-size: 0.8rem;
+            color: #64748b;
+            text-transform: uppercase;
+            margin-bottom: 0.25rem;
+            letter-spacing: 0.5px;
+        }
+
+        .info-item p {
+            font-size: 1rem;
+            color: #0f172a;
+            font-weight: 600;
+        }
+
+        /* Footer banner styling */
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: #64748b;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">LogiTrack //</div>
+        <div class="nav-links">
+            <a href="#">Dashboard</a>
+            <a href="#">Shipments</a>
+            <a href="#">Analytics</a>
+            <a href="#">Settings</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <h1>Global Asset & Parcel Tracker</h1>
+        <p>Real-time transit monitoring and automated delivery workflow management environment</p>
+        
+        <div class="search-container">
+            <input type="text" value="TRK-982410-PH" placeholder="Enter Tracking Identifier Number...">
+            <button type="button">Track Package</button>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <h3 class="section-title">Active Route Scenario Context</h3>
+        
+        <div class="timeline">
+            <div class="timeline-progress"></div>
+            
+            <div class="step completed">
+                <div class="circle">✓</div>
+                <div class="step-label">Dispatched</div>
+            </div>
+            <div class="step completed">
+                <div class="circle">✓</div>
+                <div class="step-label">In Transit</div>
+            </div>
+            <div class="step active">
+                <div class="circle">3</div>
+                <div class="step-label">Out for Delivery</div>
+            </div>
+            <div class="step">
+                <div class="circle">4</div>
+                <div class="step-label">Arrived / Closed</div>
+            </div>
+        </div>
+
+        <div class="info-grid">
+            <div class="info-item">
+                <h4>System Identifier</h4>
+                <p>TRK-982410-PH</p>
+            </div>
+            <div class="info-item">
+                <h4>Current Facility Hub Location</h4>
+                <p>Cavite Distribution Center Depot</p>
+            </div>
+            <div class="info-item">
+                <h4>Estimated Arrival Time</h4>
+                <p>May 29, 2026 - 5:30 PM</p>
+            </div>
+            <div class="info-item">
+                <h4>Carrier Handler Assignee</h4>
+                <p>Express Logistics Courier Service</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        &copy; 2026 LogiTrack Internal Application Environment. Managed via Apache2 Platform Web Server.
+    </footer>
+
+</body>
+</html>
